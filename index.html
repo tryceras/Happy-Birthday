@@ -243,12 +243,14 @@
 
     .memory-frame {
       margin: 28px auto 24px;
-      max-width: 360px;
+      max-width: 520px;
       padding: 10px;
       border-radius: 24px;
       background: rgba(255, 255, 255, 0.62);
       border: 1px solid var(--border);
       box-shadow: 0 18px 45px rgba(124, 48, 80, 0.10);
+      display: grid;
+      gap: 12px;
     }
 
     .memory-photo {
@@ -506,7 +508,9 @@
           <p class="wish">Today is all about celebrating you, the person who makes ordinary moments feel special. 🐘❤️</p>
 
           <div class="memory-frame">
-            <img class="memory-photo" alt="Kolase foto kenangan bersama Agatha" src="agatha-collage.jpg">
+            <img class="memory-photo" alt="Foto kenangan bersama Agatha 1" src="IMG-20260702-WA0013.jpg">
+            <img class="memory-photo" alt="Foto kenangan bersama Agatha 2" src="IMG-20260808-WA0003.jpg">
+            <img class="memory-photo" alt="Foto kenangan bersama Agatha 3" src="IMG-20260830-WA0025.jpg">
           </div>
 
           <div class="letter">
@@ -552,15 +556,11 @@
     const ctx = confettiCanvas.getContext('2d');
     const introScreen = document.getElementById('introScreen');
     const introOpen = document.getElementById('introOpen');
-    const personalPhoto = document.querySelector('.memory-photo');
+    const personalPhotos = document.querySelectorAll('.memory-photo');
 
-    function restorePersonalPhoto() {
-      personalPhoto.dataset.personal = '1';
-      personalPhoto.src = 'agatha-collage.jpg';
-    }
-
-    personalPhoto.addEventListener('error', restorePersonalPhoto);
-    restorePersonalPhoto();
+    personalPhotos.forEach((photo) => {
+      photo.dataset.personal = '1';
+    });
 
     introOpen.addEventListener('click', () => {
       introScreen.classList.add('hide');
@@ -586,7 +586,7 @@
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
       const minutes = Math.floor((distance / (1000 * 60)) % 60);
-      const seconds = Math.floor((distance / 1000) % 60); if (!document.querySelector('.memory-photo').dataset.personal) { document.querySelector('.memory-photo').src = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAEMuMjoyKkM6NjpLR0NPZKZsZFxcZMySmnmm8dT++u3U6eX//////////+Xp////////////////////////////2wBDAUdLS2RXZMRsbMT//+n/////////////////////////////////////////////////////////////////////wAARCABaAQ4DASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAQIDBAAF/8QALRAAAgIBAwMCBgICAwAAAAAAAAECEQMhMUEEElEzYRMiMnGBsUKhFJEjNHL/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAZEQEBAQEBAQAAAAAAAAAAAAAAARExQSH/2gAMAwEAAhEDEQA/AMJxxwHBSsBVUsXu2BOqY7yN6Xf3E3dJDLFN/wAWA2j1tA7lewjTW6ABRavSjpVdRJptMa3TfkgM3Ue1GnB6MTLbap6mvB6UQHCAKA6jgiZJqC9wFy5K0W5nbbY0pXot2GEbYBx9P3aspPAu3QtHRHNk1rHnyTg6aLdPl/i9iuWCnFmSKal7ln1LMejid2UJYHavyVBAEzZliS5b4HekW/CMNSzTcm9PJA0upm5XengEuobfgbGscHUt/LQ2XHGcdkn5C47Fn/jLX3NEfqPNXyyrlF3kyZajDRLf3Kjb8WEdHJDJxmtGmee+mny0LGWTDPegNkl2y9hkCM1mx9y35AtNGRXlnHBNMuiu6SQ096XGh0H2psEVbA19PiUY296svFKiMJxilrwUjkQUuSEXwZMuOnobJTXBCbT5AyjKkrY0I72CWrvhBA5NeD0YmRJvU14PSj+f2A4UcdsEdOShFtmKcnJ2ymfL3Ok/lRKKbv2CmjdDxlLHq1aF7LQYqW26IrTGaktAsyqfw5NMb4zeyJjWqylSIKOtnPJe6aE7mWM2tvTO4suZuidqa+xpFCZJOKXbuyaUVFRrQrl+izO2tm9DLULLFK9009gPI4fLukM246wla8EpxpWiibdybL4WoxRnku11yNF+VfsVlrWRPmyOZqey25FUXo6pWUeJRettcNIi9N0UvnceGjU4WY43hyppbo3RdqyjxRlECTsfjcrLmtPYONaNvbYm2/NmvBDuhFLwAjlCq0Dji5SSRb/HUXqPCMbqP5YVmyfK6YjlCq5NWWKc/uSng05AzN/LSBwGcalRyA5NUl7mnB6Mfz+zIa8HoxCKAyOsbCJkXdSCMjL9PG4tvkjJamrB6SJWp13Y46bo5XLSKr3Yyptq9g9/bLtaojSebDGOJ1vyybg4q06LyfxE1egluKqa/PkJjPKUmqkxSuXtStf0Ss0zWzof5/g1GDp8rx9zStPco+rk4uoq/wBEqrZ5VSM83ppqcpfJbdvmyTk09CKK0emhXDjeWav6VuJg7Z5VGezNlpPtiqigMuXp5zyzkmlrovImO/pr5loXzZIQ0abBHJGWqq61sLhe2V6vVeRscknUpfgMZxncbsWWHskmtUQdl7XmVyqKRohkilUdjBml/wAz9gKT8mkBit8DO2K1RUd9zX08qjXsY22ymGXbKmBv1noiU/iQ0UXS5Rym19FX7iSyT4lb8EVynKTpp/cu5OjMskr1Kxn3bhYh1FJr3Jx9juol3ZHXAkXqVm9GSpmzpsblhi01z+zNXdH3N/S/L08fz+wWJ5F8Ordt7JCzpRtv+yvU4nOCa3WplUJPaP8AQQk5XbKdPai0GeGSinL/AENBdsbJWoeS5Ek7VNWvJTdCOPhkaTh2xkqf4KSmtibUYu3q0Snkvb/YxncDJK3S2QqBRSEbZplzi+xNci6WtX7ls3yqFJ6XuRe182BdR7opxJyVFsCkse1a8jxqH06vlmW08GGqnNNexaU9NCc5u9QfEivcgTqcqlUUttzPsWlkhJ6x/IicI29/BpkcVrWjZDJGSpox/EfjQKyUyWLKfPgcG5wuUX/RGzTjzNP2Ey4U33QWj4XBdLE3JKO2pJu9ws6KtlZcjk6Z1e4H4QGrE7jXJ0sb31ojCTjsWWfQiuUWtzpOk34B8SyWaTdLgKm9XY0FenIqGiq1KikZaVRu6b0Y/n9mGGrs3dP6Mfz+wt4o2SlBN3F0x2FBlHJjlSbfIKpF8usCNGa1Eu5xdcAlk00Q04k1ilN1Qi1GTcnqckaMmBpfKQaaNMOih8b7ciE4NuHDGEFPIrvZFCZcbm1TpLkEMcIcW/LHyP5tNuBO4xWpw7d7k8uRQXuCeRRVszzblK2JFtdNuT3OtJulXB0dXfgDeiKy7ZNPcAZa6+TpRavmio5K1oGk9ARdbjaNWB0G06ZphKlu/wAGbi+UUjLQzY1KlKNOrBXbraGy/wAfsTNMm9xBluhppdq0AEZ1urGUovmib4OAsq4YuSOtkzgugVldEyv8V9gQIS0PQ6d3gj+TzFyej0v/AFl9n+waoFIC2DHkIZq40RcWuCy3YF9TGLKmoOXBRRUVSGYBIWkktjH1KSnSXubWY+q9VfYIkq7bZfFJqop2nt7EI7FIcf8AoKbJLYnKdIr1P1IyPdk9PHSbk7YV9NirkZem/uVCnLUAVuB3JbpmnNwa0kiXKGw+tH7kCy0k0tkwp8jdR6jJlB7vAYyWwoAP/9k='; document.querySelector('.memory-photo').dataset.personal = '1'; }
+      const seconds = Math.floor((distance / 1000) % 60);
 
       document.getElementById('days').textContent = pad(days);
       document.getElementById('hours').textContent = pad(hours);
