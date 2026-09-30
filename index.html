@@ -253,14 +253,13 @@
       gap: 12px;
     }
 
-    .youtube-audio {
+    .site-audio {
       position: fixed;
       width: 1px;
       height: 1px;
       left: -10px;
       bottom: -10px;
-      border: 0;
-      opacity: 0.01;
+      opacity: 0;
       pointer-events: none;
     }
 
@@ -550,7 +549,9 @@
   </main>
 
   <canvas id="confettiCanvas" aria-hidden="true"></canvas>
-  <iframe id="musicFrame" title="Musik ulang tahun" class="youtube-audio" src="" width="1" height="1" allow="autoplay; encrypted-media" aria-hidden="true"></iframe>
+  <audio id="musicPlayer" class="site-audio" preload="auto" aria-label="Musik ulang tahun">
+    <source src="Ten2Five%20-%20Happy%20Birthday%20(Official%20Lyric)%20-%20GP%20Records%20(128k).mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     // Target: 2 Oktober 2026, 00:00 WIB = 1 Oktober 2026, 17:00 UTC.
@@ -645,14 +646,18 @@
       requestAnimationFrame(frame);
     }
 
-    const musicFrame = document.getElementById('musicFrame');
+    const musicPlayer = document.getElementById('musicPlayer');
     let musicStarted = false;
 
     function startMusic() {
       if (musicStarted) return;
-      musicStarted = true;
-      musicFrame.src = 'https://www.youtube.com/embed/0-7qcPc_Utc?autoplay=1&playsinline=1&rel=0';
-      musicBtn.textContent = '🔊 Musik menyala';
+
+      musicPlayer.play().then(() => {
+        musicStarted = true;
+        musicBtn.textContent = '🔊 Musik menyala';
+      }).catch(() => {
+        musicBtn.textContent = '🎵 Coba nyalakan musik lagi';
+      });
     }
 
     surpriseBtn.addEventListener('click', () => {
