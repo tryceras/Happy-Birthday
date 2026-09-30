@@ -1,1 +1,664 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Untukmu — 2 Oktober 2026</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fff4f7;
+      --bg-soft: #ffe8ef;
+      --card: rgba(255, 255, 255, 0.78);
+      --text: #3d2430;
+      --muted: #7f6470;
+      --accent: #d94d7d;
+      --accent-2: #b83c68;
+      --border: rgba(118, 60, 82, 0.12);
+      --shadow: 0 24px 70px rgba(124, 48, 80, 0.14);
+    }
 
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #24151c;
+        --bg-soft: #351c27;
+        --card: rgba(52, 31, 41, 0.84);
+        --text: #fff0f5;
+        --muted: #d0adb9;
+        --accent: #ff83a9;
+        --accent-2: #ff6695;
+        --border: rgba(255, 210, 227, 0.10);
+        --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .app {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(255, 166, 194, 0.35), transparent 28%),
+        radial-gradient(circle at 90% 88%, rgba(255, 214, 157, 0.28), transparent 24%),
+        var(--bg);
+    }
+
+    .float {
+      position: absolute;
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      opacity: 0.55;
+      animation: drift 7s ease-in-out infinite;
+      user-select: none;
+    }
+
+    .f1 { top: 9%; left: 8%; }
+    .f2 { top: 18%; right: 12%; animation-delay: -2s; }
+    .f3 { bottom: 17%; left: 14%; animation-delay: -4s; }
+    .f4 { bottom: 9%; right: 8%; animation-delay: -1s; }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-12px) rotate(4deg); }
+    }
+
+    .shell {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 42px 0;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 760px;
+      padding: clamp(28px, 6vw, 64px);
+      border: 1px solid var(--border);
+      background: var(--card);
+      backdrop-filter: blur(14px);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 5.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .intro {
+      max-width: 560px;
+      margin: 20px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.2vw, 1.2rem);
+      line-height: 1.7;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 34px 0 22px;
+    }
+
+    .unit {
+      padding: 18px 8px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.38);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .unit { background: rgba(255, 255, 255, 0.04); }
+    }
+
+    .number {
+      display: block;
+      font-size: clamp(1.8rem, 6vw, 3.2rem);
+      font-weight: 900;
+      color: var(--accent-2);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .label {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .locked {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: var(--bg-soft);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .unlock {
+      display: none;
+      animation: appear 800ms ease both;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      display: block;
+      margin: 4px 0 14px;
+      font-size: 3.2rem;
+      animation: beat 1.35s ease-in-out infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      45% { transform: scale(1.12); }
+    }
+
+    .wish {
+      margin: 18px auto 0;
+      max-width: 620px;
+      font-size: clamp(1.08rem, 2.7vw, 1.45rem);
+      line-height: 1.85;
+    }
+
+    .date {
+      margin-top: 26px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .elephant-wrap {
+      margin: 10px auto 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 10px;
+      min-height: 70px;
+    }
+
+    .elephant {
+      display: inline-block;
+      font-size: clamp(2.5rem, 8vw, 4.2rem);
+      filter: drop-shadow(0 8px 10px rgba(72, 50, 63, 0.10));
+      animation: elephantWalk 3.6s ease-in-out infinite;
+    }
+
+    .elephant:nth-child(2) {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      animation-delay: -1.2s;
+    }
+
+    .elephant:nth-child(3) {
+      font-size: clamp(1.7rem, 5vw, 2.7rem);
+      animation-delay: -2.2s;
+    }
+
+    @keyframes elephantWalk {
+      0%, 100% { transform: translateY(0) translateX(-8px); }
+      50% { transform: translateY(-8px) translateX(8px); }
+    }
+
+    .birthday-name {
+      margin: 0 0 10px;
+      font-size: clamp(1.05rem, 3vw, 1.35rem);
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .memory-frame {
+      margin: 28px auto 24px;
+      max-width: 520px;
+      padding: 10px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 45px rgba(124, 48, 80, 0.10);
+    }
+
+    .memory-photo {
+      display: block;
+      width: 100%;
+      border-radius: 17px;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .letter {
+      margin: 22px auto 0;
+      max-width: 650px;
+      padding: clamp(22px, 5vw, 34px);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.74), rgba(255,240,246,0.74));
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .letter h3 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+    }
+
+    .letter p {
+      margin: 0;
+      color: var(--text);
+      line-height: 1.9;
+      font-size: 1.02rem;
+    }
+
+    .signature {
+      margin-top: 22px !important;
+      text-align: right;
+      font-weight: 800;
+      color: var(--accent-2) !important;
+    }
+
+    .elephant-note {
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .action-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 18px;
+      background: var(--accent-2);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(184, 60, 104, 0.18);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(184, 60, 104, 0.24);
+    }
+
+    .action-btn.secondary {
+      background: var(--bg-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .surprise {
+      display: none;
+      margin: 20px auto 0;
+      max-width: 620px;
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.52);
+      border: 1px dashed var(--accent);
+      animation: appear 600ms ease both;
+    }
+
+    .surprise strong {
+      color: var(--accent-2);
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .intro-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(255, 180, 205, 0.32), transparent 34%),
+        linear-gradient(145deg, #fff3f7, #ffe8ef);
+      transition: opacity 700ms ease, visibility 700ms ease;
+    }
+
+    .intro-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .intro-card {
+      width: min(680px, 100%);
+      padding: clamp(28px, 7vw, 58px);
+      text-align: center;
+      border: 1px solid rgba(118, 60, 82, 0.12);
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 28px 80px rgba(124, 48, 80, 0.16);
+      backdrop-filter: blur(14px);
+      animation: introCardIn 900ms ease both;
+    }
+
+    @keyframes introCardIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .intro-elephant {
+      display: inline-block;
+      font-size: clamp(4rem, 15vw, 7rem);
+      margin-bottom: 8px;
+      animation: introElephant 2.6s ease-in-out infinite;
+      filter: drop-shadow(0 10px 15px rgba(72, 50, 63, 0.12));
+    }
+
+    @keyframes introElephant {
+      0%, 100% { transform: translateX(-10px) rotate(-2deg); }
+      50% { transform: translateX(10px) rotate(2deg); }
+    }
+
+    .intro-card h2 {
+      margin: 0;
+      font-size: clamp(2.4rem, 8vw, 4.9rem);
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    .intro-card p {
+      max-width: 520px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+    }
+
+    .intro-open {
+      margin-top: 26px;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 22px;
+      background: var(--accent-2);
+      color: #fff;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(184, 60, 104, 0.22);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .intro-open:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(184, 60, 104, 0.28);
+    }
+
+    .intro-small {
+      margin-top: 13px !important;
+      font-size: 0.82rem !important;
+    }
+
+    @media (max-width: 620px) {
+      .countdown { grid-template-columns: repeat(2, 1fr); }
+      .card { border-radius: 24px; }
+      .letter { text-align: left; }
+    }
+  </style>
+  <style>
+    .app::before {
+      content: "🐘";
+      position: absolute;
+      right: 5%;
+      top: 4%;
+      font-size: clamp(3rem, 11vw, 6rem);
+      opacity: 0.08;
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-screen" id="introScreen">
+    <div class="intro-card">
+      <span class="intro-elephant" aria-hidden="true">🐘</span>
+      <p class="eyebrow">Sebuah pesan kecil untukmu</p>
+      <h2>Untuk Agatha,<br>orang tersayangku. 💗</h2>
+      <p>Aku menyiapkan sesuatu yang sederhana, tapi dibuat khusus untukmu. Masuk dulu, ya… karena ada satu hal yang masih harus kita tunggu bersama. ✨</p>
+      <button class="intro-open" id="introOpen" type="button">💌 Buka perlahan</button>
+      <p class="intro-small">PS: Gajah-gajah kecil ini ikut menjaga rahasianya. 🐘</p>
+    </div>
+  </div>
+
+  <main class="app">
+    <div class="float f1">🐘</div>
+    <div class="float f2">♡</div>
+    <div class="float f3">🐘</div>
+    <div class="float f4">✦</div>
+
+    <div class="shell">
+      <section class="card" aria-live="polite">
+        <p class="eyebrow">Ada sesuatu untukmu</p>
+        <div class="elephant-wrap" aria-hidden="true">
+          <span class="elephant">🐘</span>
+          <span class="elephant">🐘</span>
+          <span class="elephant">🐘</span>
+        </div>
+        <h1>Just a little<br>more waiting…</h1>
+        <p class="intro">Untuk <strong>Agatha Alodia Devi</strong> 💗<br>Aku sengaja menyimpan pesan ini dulu. Nanti, tepat pada waktunya, sesuatu yang spesial akan terbuka.</p>
+
+        <div id="countdownWrap">
+          <div class="countdown" aria-label="Hitung mundur menuju ulang tahun">
+            <div class="unit"><span class="number" id="days">00</span><span class="label">Hari</span></div>
+            <div class="unit"><span class="number" id="hours">00</span><span class="label">Jam</span></div>
+            <div class="unit"><span class="number" id="minutes">00</span><span class="label">Menit</span></div>
+            <div class="unit"><span class="number" id="seconds">00</span><span class="label">Detik</span></div>
+          </div>
+          <div class="locked" id="lockedText">🔒 Belum waktunya dibuka</div>
+        </div>
+
+        <div class="unlock" id="unlockSection">
+          <span class="heart">💗</span>
+          <p class="eyebrow">2 Oktober 2026</p>
+          <p class="birthday-name">Untuk Agatha Alodia Devi</p>
+          <h2 style="font-size:clamp(2.2rem, 6vw, 4.2rem);margin:0;letter-spacing:-0.03em;">Happy Birthday, Agatha! 🎂</h2>
+          <p class="wish">Today is all about celebrating you, the person who makes ordinary moments feel special. 🐘❤️</p>
+
+          <div class="memory-frame">
+            <img class="memory-photo" alt="Kolase foto kenangan bersama Agatha" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDACweISchHCwnJCcyLyw1Qm9IQj09QohhZlBvoY2ppp6Nm5ixx//Ysbzxv5ib3v/g8f//////rNX/////////////2wBDAS8yMkI6QoJISIL/t5u3////////////////////////////////////////////////////////////////////wgARCAD6AMgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAECAwQF/8QAFgEBAQEAAAAAAAAAAAAAAAAAAAEC/9oADAMBAAIQAxAAAAHqg809I80PSfmM9I89x3nno9E4EekpxOg5w6DnZuYSdJxM7Dns2EE+b6Xm0AA7gsgKIcUgO/LbEYNEPNZyrQU9Kl4+rEs7gCfN9LzaGrF0YdRWWil5J3zsSZHoZaZg0JHOy2tMyXpWJLUJXPoCBeb6fm0NyXdOWV0ZmM6ZWDSPQy1yHlrimPRj0zUOnLgtVZimrPRAg8/0PPpIR2XzbSpEm/J0co5Lruz0aYQSZ9OWsqjSJqpnO5lrWztGQuDv82k0w359IspKsLiquLjuBWKLZitIzqYasyLmw2z6TYCF53o+bTSYqaKebglqrcqX0kKwqaJjVSxbLM+Tt4x7Y6nSBBydknIdYcz6A556g5DrDkrYNDKxtMFUgSystAx0pLYCEXAASgAAC47Kg2uOXfErrjGjTbiZ0OoigAANALCLhQCAAARmgXKrxCAueisCa257Vm+uHSZsiLJF1AuXF5jE5RoAJMpea0RZEdeFioqKcarj1c26aY6wNjKAsM9M1M8sjpfKzojDWEiTXo5uhXnXIdL5g2WsnNUO5uU6035Wd4iHz78JAMCQNsdlDRS0oA59VZnokabctRrz7Uc7qdRis7RkLz/R4lzLDPTSpZuSHCwptFyAhVNUDB7YaZrx6cKmybPQAh8vVyytSpacFVKyRodgkVQiKnbEomqZDjasqmonpxs7gErLUMjUMlsGBuGBuHOdAYLoDE2Dne4c50BibBk9BQBP/8QAJBAAAgIBBQEAAwEBAQAAAAAAAAECERASEyAxMiEDMEFAIkL/2gAIAQEAAQUCNUTVE1RNUTUi0akakakakaliyy0WWWWWWXmXn9a8cm6NZrE7zLzxvixeOLlhQJRosTsXUvOf5zXjg3iK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">
+          </div>
+
+          <div class="letter">
+            <h3>💌 A little letter for you</h3>
+            <p>From our first meeting until now, we’ve been inseparable—truly an amazing journey💫<br><br>Sharing every moment, laugh, and memory—you are truly wonderful.<br>Here’s to the year ahead in our beautiful relationship! 🎉<br><br>You deserve all the happiness in the world. Just keep being yourself! ✨</p>
+            <p class="signature">With all my love, always. ❤️</p>
+          </div>
+
+          <div class="action-row">
+            <button class="action-btn" id="surpriseBtn" type="button">🎁 Buka surprise</button>
+            <button class="action-btn secondary" id="musicBtn" type="button">🎵 Nyalakan musik</button>
+          </div>
+
+          <div class="surprise" id="surpriseBox">
+            <strong>🐘 A tiny elephant-sized promise:</strong><br>
+            whatever adventures come next, I hope we keep choosing each other, laughing at the little things, and collecting more memories together. 💗
+          </div>
+
+          <p class="elephant-note">Semoga langkah kita ke depan selalu punya ruang untuk tertawa, tumbuh, dan membuat kenangan baru—pelan-pelan, bersama. 🐘</p>
+          <p class="date">Made especially for Agatha, with love.</p>
+        </div>
+
+        <p class="footer">Countdown menggunakan waktu Indonesia Barat (WIB).</p>
+      </section>
+    </div>
+  </main>
+
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <script>
+    // Target: 2 Oktober 2026, 00:00 WIB = 1 Oktober 2026, 17:00 UTC.
+    const birthdayTarget = new Date('2026-10-01T17:00:00Z').getTime();
+
+    const countdownWrap = document.getElementById('countdownWrap');
+    const unlockSection = document.getElementById('unlockSection');
+    const lockedText = document.getElementById('lockedText');
+    const title = document.querySelector('h1');
+    const intro = document.querySelector('.intro');
+    const surpriseBtn = document.getElementById('surpriseBtn');
+    const surpriseBox = document.getElementById('surpriseBox');
+    const musicBtn = document.getElementById('musicBtn');
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const ctx = confettiCanvas.getContext('2d');
+    const introScreen = document.getElementById('introScreen');
+    const introOpen = document.getElementById('introOpen');
+
+    introOpen.addEventListener('click', () => {
+      introScreen.classList.add('hide');
+      setTimeout(() => introScreen.remove(), 760);
+    });
+
+    function pad(value) {
+      return String(value).padStart(2, '0');
+    }
+
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = birthdayTarget - now;
+
+      if (distance <= 0) {
+        countdownWrap.style.display = 'none';
+        unlockSection.style.display = 'block';
+        title.style.display = 'none';
+        intro.style.display = 'none';
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60); if (!document.querySelector('.memory-photo').dataset.personal) { document.querySelector('.memory-photo').src = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAEMuMjoyKkM6NjpLR0NPZKZsZFxcZMySmnmm8dT++u3U6eX//////////+Xp////////////////////////////2wBDAUdLS2RXZMRsbMT//+n/////////////////////////////////////////////////////////////////////wAARCABaAQ4DASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAQIDBAAF/8QALRAAAgIBAwMCBgICAwAAAAAAAAECEQMhMUEEElEzYRMiMnGBsUKhFJEjNHL/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAZEQEBAQEBAQAAAAAAAAAAAAAAARExQSH/2gAMAwEAAhEDEQA/AMJxxwHBSsBVUsXu2BOqY7yN6Xf3E3dJDLFN/wAWA2j1tA7lewjTW6ABRavSjpVdRJptMa3TfkgM3Ue1GnB6MTLbap6mvB6UQHCAKA6jgiZJqC9wFy5K0W5nbbY0pXot2GEbYBx9P3aspPAu3QtHRHNk1rHnyTg6aLdPl/i9iuWCnFmSKal7ln1LMejid2UJYHavyVBAEzZliS5b4HekW/CMNSzTcm9PJA0upm5XengEuobfgbGscHUt/LQ2XHGcdkn5C47Fn/jLX3NEfqPNXyyrlF3kyZajDRLf3Kjb8WEdHJDJxmtGmee+mny0LGWTDPegNkl2y9hkCM1mx9y35AtNGRXlnHBNMuiu6SQ096XGh0H2psEVbA19PiUY296svFKiMJxilrwUjkQUuSEXwZMuOnobJTXBCbT5AyjKkrY0I72CWrvhBA5NeD0YmRJvU14PSj+f2A4UcdsEdOShFtmKcnJ2ymfL3Ok/lRKKbv2CmjdDxlLHq1aF7LQYqW26IrTGaktAsyqfw5NMb4zeyJjWqylSIKOtnPJe6aE7mWM2tvTO4suZuidqa+xpFCZJOKXbuyaUVFRrQrl+izO2tm9DLULLFK9009gPI4fLukM246wla8EpxpWiibdybL4WoxRnku11yNF+VfsVlrWRPmyOZqey25FUXo6pWUeJRettcNIi9N0UvnceGjU4WY43hyppbo3RdqyjxRlECTsfjcrLmtPYONaNvbYm2/NmvBDuhFLwAjlCq0Dji5SSRb/HUXqPCMbqP5YVmyfK6YjlCq5NWWKc/uSng05AzN/LSBwGcalRyA5NUl7mnB6Mfz+zIa8HoxCKAyOsbCJkXdSCMjL9PG4tvkjJamrB6SJWp13Y46bo5XLSKr3Yyptq9g9/bLtaojSebDGOJ1vyybg4q06LyfxE1egluKqa/PkJjPKUmqkxSuXtStf0Ss0zWzof5/g1GDp8rx9zStPco+rk4uoq/wBEqrZ5VSM83ppqcpfJbdvmyTk09CKK0emhXDjeWav6VuJg7Z5VGezNlpPtiqigMuXp5zyzkmlrovImO/pr5loXzZIQ0abBHJGWqq61sLhe2V6vVeRscknUpfgMZxncbsWWHskmtUQdl7XmVyqKRohkilUdjBml/wAz9gKT8mkBit8DO2K1RUd9zX08qjXsY22ymGXbKmBv1noiU/iQ0UXS5Rym19FX7iSyT4lb8EVynKTpp/cu5OjMskr1Kxn3bhYh1FJr3Jx9juol3ZHXAkXqVm9GSpmzpsblhi01z+zNXdH3N/S/L08fz+wWJ5F8Ordt7JCzpRtv+yvU4nOCa3WplUJPaP8AQQk5XbKdPai0GeGSinL/AENBdsbJWoeS5Ek7VNWvJTdCOPhkaTh2xkqf4KSmtibUYu3q0Snkvb/YxncDJK3S2QqBRSEbZplzi+xNci6WtX7ls3yqFJ6XuRe182BdR7opxJyVFsCkse1a8jxqH06vlmW08GGqnNNexaU9NCc5u9QfEivcgTqcqlUUttzPsWlkhJ6x/IicI29/BpkcVrWjZDJGSpox/EfjQKyUyWLKfPgcG5wuUX/RGzTjzNP2Ey4U33QWj4XBdLE3JKO2pJu9ws6KtlZcjk6Z1e4H4QGrE7jXJ0sb31ojCTjsWWfQiuUWtzpOk34B8SyWaTdLgKm9XY0FenIqGiq1KikZaVRu6b0Y/n9mGGrs3dP6Mfz+wt4o2SlBN3F0x2FBlHJjlSbfIKpF8usCNGa1Eu5xdcAlk00Q04k1ilN1Qi1GTcnqckaMmBpfKQaaNMOih8b7ciE4NuHDGEFPIrvZFCZcbm1TpLkEMcIcW/LHyP5tNuBO4xWpw7d7k8uRQXuCeRRVszzblK2JFtdNuT3OtJulXB0dXfgDeiKy7ZNPcAZa6+TpRavmio5K1oGk9ARdbjaNWB0G06ZphKlu/wAGbi+UUjLQzY1KlKNOrBXbraGy/wAfsTNMm9xBluhppdq0AEZ1urGUovmib4OAsq4YuSOtkzgugVldEyv8V9gQIS0PQ6d3gj+TzFyej0v/AFl9n+waoFIC2DHkIZq40RcWuCy3YF9TGLKmoOXBRRUVSGYBIWkktjH1KSnSXubWY+q9VfYIkq7bZfFJqop2nt7EI7FIcf8AoKbJLYnKdIr1P1IyPdk9PHSbk7YV9NirkZem/uVCnLUAVuB3JbpmnNwa0kiXKGw+tH7kCy0k0tkwp8jdR6jJlB7vAYyWwoAP/9k='; document.querySelector('.memory-photo').dataset.personal = '1'; }
+
+      document.getElementById('days').textContent = pad(days);
+      document.getElementById('hours').textContent = pad(hours);
+      document.getElementById('minutes').textContent = pad(minutes);
+      document.getElementById('seconds').textContent = pad(seconds);
+      lockedText.textContent = '🔒 Belum waktunya dibuka';
+    }
+
+    function resizeCanvas() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+
+    function launchConfetti() {
+      resizeCanvas();
+      const pieces = Array.from({ length: 120 }, () => ({
+        x: Math.random() * confettiCanvas.width,
+        y: -20 - Math.random() * 120,
+        r: 3 + Math.random() * 5,
+        vx: (Math.random() - 0.5) * 5,
+        vy: 2 + Math.random() * 5,
+        rot: Math.random() * Math.PI,
+        spin: (Math.random() - 0.5) * 0.2
+      }));
+
+      const start = performance.now();
+      function frame(now) {
+        ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        pieces.forEach((p, i) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.045;
+          p.rot += p.spin;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillStyle = i % 3 === 0 ? '#d94d7d' : (i % 3 === 1 ? '#f2b36d' : '#8f7ac7');
+          ctx.fillRect(-p.r, -p.r / 2, p.r * 2.2, p.r);
+          ctx.restore();
+        });
+        if (now - start < 4200) requestAnimationFrame(frame);
+        else ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    let audioContext;
+    let musicTimer;
+
+    function startMusic() {
+      if (musicTimer) return;
+      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+      const notes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63, 293.66, 349.23];
+      let step = 0;
+      musicTimer = setInterval(() => {
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = notes[step % notes.length];
+        gain.gain.setValueAtTime(0, audioContext.currentTime);
+        gain.gain.linearRampToValueAtTime(0.055, audioContext.currentTime + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.46);
+        osc.connect(gain).connect(audioContext.destination);
+        osc.start();
+        osc.stop(audioContext.currentTime + 0.48);
+        step += 1;
+      }, 540);
+      musicBtn.textContent = '🔊 Musik menyala';
+    }
+
+    surpriseBtn.addEventListener('click', () => {
+      surpriseBox.style.display = surpriseBox.style.display === 'block' ? 'none' : 'block';
+      launchConfetti();
+    });
+
+    musicBtn.addEventListener('click', startMusic);
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
