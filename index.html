@@ -253,6 +253,17 @@
       gap: 12px;
     }
 
+    .youtube-audio {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      left: -10px;
+      bottom: -10px;
+      border: 0;
+      opacity: 0.01;
+      pointer-events: none;
+    }
+
     .memory-photo {
       display: block;
       width: 100%;
@@ -539,6 +550,7 @@
   </main>
 
   <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+  <iframe id="musicFrame" title="Musik ulang tahun" class="youtube-audio" src="" width="1" height="1" allow="autoplay; encrypted-media" aria-hidden="true"></iframe>
 
   <script>
     // Target: 2 Oktober 2026, 00:00 WIB = 1 Oktober 2026, 17:00 UTC.
@@ -633,27 +645,13 @@
       requestAnimationFrame(frame);
     }
 
-    let audioContext;
-    let musicTimer;
+    const musicFrame = document.getElementById('musicFrame');
+    let musicStarted = false;
 
     function startMusic() {
-      if (musicTimer) return;
-      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
-      const notes = [261.63, 329.63, 392.00, 523.25, 392.00, 329.63, 293.66, 349.23];
-      let step = 0;
-      musicTimer = setInterval(() => {
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        osc.type = 'sine';
-        osc.frequency.value = notes[step % notes.length];
-        gain.gain.setValueAtTime(0, audioContext.currentTime);
-        gain.gain.linearRampToValueAtTime(0.055, audioContext.currentTime + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.46);
-        osc.connect(gain).connect(audioContext.destination);
-        osc.start();
-        osc.stop(audioContext.currentTime + 0.48);
-        step += 1;
-      }, 540);
+      if (musicStarted) return;
+      musicStarted = true;
+      musicFrame.src = 'https://www.youtube.com/embed/0-7qcPc_Utc?autoplay=1&playsinline=1&rel=0';
       musicBtn.textContent = '🔊 Musik menyala';
     }
 
